@@ -31,6 +31,14 @@ public class City {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "countryCode")
     private Country country;
+    
+      public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
 
     public City() {
     }
@@ -64,14 +72,6 @@ public class City {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCountryCode() {
-        return countryCode;
-    }
-
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
     }
 
     public String getDistrict() {

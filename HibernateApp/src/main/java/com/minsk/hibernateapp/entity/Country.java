@@ -31,9 +31,19 @@ public class Country {
     @Column(name = "population")
     private int population;
     
-    @OneToMany(mappedBy = "countryCode", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
+    //	@OneToMany(cascade={CascadeType.ALL})
+	@JoinColumn(name="countryCode")
     private List<City> cities;
 
+      public List<City> getCities() {
+        return cities;
+    }
+
+    public void setCities(List<City> cities) {
+        this.cities = cities;
+    }
+    
     public Country() {
     }
 
@@ -92,14 +102,6 @@ public class Country {
 
     public void setPopulation(int population) {
         this.population = population;
-    }
-   
-    public List<City> getCities() {
-        return cities;
-    }
-
-    public void setCities(List<City> autos) {
-        this.cities = cities;
     }
   
     @Override

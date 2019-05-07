@@ -6,6 +6,7 @@
 package com.minsk.hibernateapp.dao;
 
 import com.minsk.hibernateapp.entity.City;
+import com.minsk.hibernateapp.entity.Country;
 import java.util.List;
  
 import org.hibernate.Session;
@@ -46,6 +47,7 @@ public class CityDao implements CityDaoInterface<City, Integer> {
     private static SessionFactory getSessionFactory() {
         Configuration configuration = new Configuration().configure();
         configuration.addAnnotatedClass(City.class);
+        configuration.addAnnotatedClass(Country.class);
         StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties());
         SessionFactory sessionFactory = configuration.buildSessionFactory(builder.build());

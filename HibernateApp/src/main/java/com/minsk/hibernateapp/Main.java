@@ -7,6 +7,9 @@ package com.minsk.hibernateapp;
 
 import com.minsk.hibernateapp.entity.City;
 import com.minsk.hibernateapp.services.CityService;
+import com.minsk.hibernateapp.entity.Country;
+import com.minsk.hibernateapp.services.CountryService;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -45,11 +48,20 @@ public class Main {
             }
         */
        
+      
+       Country country = new Country();
        CityService cityService = new CityService();
-      // City city1 = new City (4081, "Zhodino", "BLR", "Minskaya", 30000);
-      City city1 = cityService.findById(4081);
- city1.setPopulation(6000);
-       cityService.update(city1);
+       CountryService countryService = new CountryService();
+       City city1 = new City ("City1", "BLR", "Minskaya", 30000);
+        City city2 = new City ("City2", "BLR", "Minskaya", 90000);
+        List<City> list = new ArrayList<>();
+        list.add(city1);
+        list.add(city2);
+        
+        
+//City city1 = cityService.findById(4081);
+ //city1.setPopulation(6000);
+      // cityService.update(city1);
       
       //  cityService.delete(4080);
       
@@ -57,8 +69,8 @@ public class Main {
      
        
        
-       List<City> list = cityService.findAll();
-       for (City l: list){
+       List<Country> list = countryService.findAll();
+       for (Country l: list){
              System.out.println(l);
          } 
     }
