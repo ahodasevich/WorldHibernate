@@ -20,7 +20,7 @@ public class Main {
       /*  City c1 = new City(1, "Minsk", "Minsk", "m", 100);
         City c4 = new City(1, "Minsk", "Minsk", "m", 100);
         City c2 = new City(1, "Min", "Min", "m", 200);
-    
+    //hello
         System.out.println(c1.hashCode());
                 System.out.println(c2.hashCode());
                   System.out.println(c4.hashCode());
