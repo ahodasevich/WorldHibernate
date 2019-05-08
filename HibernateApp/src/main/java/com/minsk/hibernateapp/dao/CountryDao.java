@@ -100,7 +100,4 @@ public class CountryDao implements CountryDaoInterface<Country, Integer> {
         }
     }
     
-    public void addListCities(List<City> cities) {
-        country.setCities(cities);
-    }
 }    
