@@ -5,6 +5,7 @@
  */
 package com.minsk.hibernateapp.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.*;
@@ -34,14 +35,18 @@ public class Country {
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
     //	@OneToMany(cascade={CascadeType.ALL})
 	@JoinColumn(name="countryCode")
-    private List<City> cities;
+    private List<City> cities = new ArrayList<City>();
 
       public List<City> getCities() {
-        return cities;
+        return this.cities;
     }
 
     public void setCities(List<City> cities) {
         this.cities = cities;
+    }
+    public void addCities(City city) {
+        city.setCountry(this);
+        getCities().add(city);
     }
     
     public Country() {

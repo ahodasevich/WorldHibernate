@@ -32,12 +32,12 @@ public class City {
     @JoinColumn(name = "countryCode")
     private Country country;
     
-      public String getCountryCode() {
-        return countryCode;
+      public Country getCountry() {
+        return this.country;
     }
 
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     public City() {
@@ -89,18 +89,10 @@ public class City {
     public void setPopulation(int population) {
         this.population = population;
     }
-
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
+    
     @Override
     public String toString() {
-        return "City{" + "id=" + id + ", name=" + name + ", countryCode=" + countryCode + ", district=" + district + ", population=" + population + '}';
+        return "City{" + "id=" + id + "Country id="+ getCountry().getCode() + ", name=" + name + ", countryCode=" + countryCode + ", district=" + district + ", population=" + population + '}';
     }
 
     @Override

@@ -59,7 +59,7 @@ public class CountryService {
  
         public void addListCities(List<City> cities) {
         countryDao.openCurrentSessionwithTransaction();
-        countryDao.addListCities(cities);
+     //   countryDao.addListCities(cities);
         countryDao.closeCurrentSessionwithTransaction();
     }
     
