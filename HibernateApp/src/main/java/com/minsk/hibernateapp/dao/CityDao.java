@@ -7,6 +7,7 @@ package com.minsk.hibernateapp.dao;
 
 import com.minsk.hibernateapp.entity.City;
 import com.minsk.hibernateapp.entity.Country;
+import com.minsk.hibernateapp.utils.HibernateSessionFactoryUtil;
 import java.util.List;
  
 import org.hibernate.Session;
@@ -25,12 +26,12 @@ public class CityDao implements CityDaoInterface<City, Integer> {
     }
     
    public Session openCurrentSession() {
-        currentSession = getSessionFactory().openSession();
+        currentSession = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         return currentSession;
     }
  
     public Session openCurrentSessionwithTransaction() {
-        currentSession = getSessionFactory().openSession();
+        currentSession = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         currentTransaction = currentSession.beginTransaction();
         return currentSession;
     }
@@ -42,16 +43,6 @@ public class CityDao implements CityDaoInterface<City, Integer> {
     public void closeCurrentSessionwithTransaction() {
         currentTransaction.commit();
         currentSession.close();
-    }
-     
-    private static SessionFactory getSessionFactory() {
-        Configuration configuration = new Configuration().configure();
-        configuration.addAnnotatedClass(City.class);
-        configuration.addAnnotatedClass(Country.class);
-        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
-                .applySettings(configuration.getProperties());
-        SessionFactory sessionFactory = configuration.buildSessionFactory(builder.build());
-        return sessionFactory;
     }
  
     public Session getCurrentSession() {

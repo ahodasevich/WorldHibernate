@@ -9,10 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "country")
-public class Country {
+public class Country implements Serializable {
+
     @Id
     @Column(name = "code")
     private String code;
@@ -31,24 +33,27 @@ public class Country {
 
     @Column(name = "population")
     private int population;
-    
-    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
+
+    @OneToMany(mappedBy = "country", fetch = FetchType.LAZY/**/, cascade = CascadeType.ALL, orphanRemoval = true)
     //	@OneToMany(cascade={CascadeType.ALL})
-	@JoinColumn(name="countryCode")
-    private List<City> cities = new ArrayList<City>();
+    //@JoinColumn(name="countryCode")
+    // @JoinColumn(name = "code", referencedColumnName = "countryCode")
+    private List<City> cities;
 
-      public List<City> getCities() {
-        return this.cities;
-    }
-
-    public void setCities(List<City> cities) {
-        this.cities = cities;
-    }
-    public void addCities(City city) {
+    //    public List<City> getCities() {
+    //      return this.cities;
+    //  }
+    public void addCity(City city) {
         city.setCountry(this);
-        getCities().add(city);
+       // cities.add(city);
+       getCities().add(city);
     }
-    
+
+    public void removeCity(City city) {
+       // cities.remove(city);
+      getCities().remove(city);
+    }
+
     public Country() {
     }
 
@@ -59,8 +64,18 @@ public class Country {
         this.region = region;
         this.surfaceArea = surfaceArea;
         this.population = population;
+        cities = new ArrayList<City>();
     }
 
+    public List<City> getCities() {
+        return cities;
+    }
+
+    public void setCities(List<City> cities) {
+        this.cities = cities;
+    }
+
+    
     public String getCode() {
         return code;
     }
@@ -108,7 +123,7 @@ public class Country {
     public void setPopulation(int population) {
         this.population = population;
     }
-  
+
     @Override
     public int hashCode() {
         int hash = 7;

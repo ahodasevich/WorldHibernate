@@ -7,10 +7,11 @@ package com.minsk.hibernateapp.entity;
 
 import java.util.Objects;
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "city")
-public class City {
+public class City implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,11 +29,11 @@ public class City {
     @Column(name = "Population")
     private int population;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "countryCode")
-    private Country country;
-    
-      public Country getCountry() {
+    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    @JoinColumn(name = "countryCode", insertable=false, updatable=false)///???????
+    public Country country;
+
+    public Country getCountry() {
         return this.country;
     }
 
@@ -42,7 +43,6 @@ public class City {
 
     public City() {
     }
-
     public City(int id, String name, String countryCode, String district, int population) {
         this.id = id;
         this.name = name;
@@ -54,6 +54,12 @@ public class City {
     public City(String name, String countryCode, String district, int population) {
         this.name = name;
         this.countryCode = countryCode;
+        this.district = district;
+        this.population = population;
+    }
+
+    public City(String name, String district, int population) {
+        this.name = name;
         this.district = district;
         this.population = population;
     }
@@ -89,10 +95,18 @@ public class City {
     public void setPopulation(int population) {
         this.population = population;
     }
-    
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
     @Override
     public String toString() {
-        return "City{" + "id=" + id + "Country id="+ getCountry().getCode() + ", name=" + name + ", countryCode=" + countryCode + ", district=" + district + ", population=" + population + '}';
+        return "City{" + "id=" + id  +  ", name=" + name + ", countryCode=" + countryCode + ", district=" + district + ", population=" + population + '}';
     }
 
     @Override

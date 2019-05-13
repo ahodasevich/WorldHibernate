@@ -20,45 +20,24 @@ import org.hibernate.query.Query;
 
 public class Main {
     public static void main(String[] args) {
-      /*  City c1 = new City(1, "Minsk", "Minsk", "m", 100);
-        City c4 = new City(1, "Minsk", "Minsk", "m", 100);
-        City c2 = new City(1, "Min", "Min", "m", 200);
-    //hello
-        System.out.println(c1.hashCode());
-                System.out.println(c2.hashCode());
-                  System.out.println(c4.hashCode());
-                                   
-                  */
-       /*
-            try {
-                Configuration configuration = new Configuration().configure();
-                configuration.addAnnotatedClass(City.class);
-                StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
-                SessionFactory sessionFactory = configuration.buildSessionFactory(builder.build());
- Session session = sessionFactory.openSession();
-        String queryString = "from City where countrycode= :value ";
-        Query queryObject = session.createQuery(queryString);
-        queryObject.setParameter("value", "gbr");
-        List<City> list = queryObject.list();
-         for (City l: list){
-             System.out.println(l);
-         }
-            } catch (Exception e) {
-                System.out.println("Exception!" + e);
-            }
-        */
+
+     
        
       
-       Country country = new Country();
+       
        CityService cityService = new CityService();
        CountryService countryService = new CountryService();
-       City city1 = new City ("City1", "BLR", "Minskaya", 30000);
-        City city2 = new City ("City2", "BLR", "Minskaya", 90000);
-        List<City> list = new ArrayList<>();
-        list.add(city1);
-        list.add(city2);
-        
-        
+       Country country = new Country("BiB", "Belarus", "Europe", "E.Europe", 10000, 9000000);
+   //    countryService.persist(country);
+      // System.out.println(country);
+       City city1 = new City ("City1", "Minskaya", 30000);
+        city1.setCountry(country);
+        country.addCity(city1);
+        countryService.update(country);
+       
+      
+     // countryService.delete("bb");
+      //  System.out.println("Deleted");
 //City city1 = cityService.findById(4081);
  //city1.setPopulation(6000);
       // cityService.update(city1);
@@ -69,10 +48,10 @@ public class Main {
      
        
        
-       List<Country> list = countryService.findAll();
-       for (Country l: list){
-             System.out.println(l);
-         } 
+  //     List<Country> list = countryService.findAll();
+ //      for (Country l: list){
+      //       System.out.println(l);
+  //       } 
     }
     
 }

@@ -26,6 +26,6 @@ public interface CountryDaoInterface<T, Id extends Serializable> {
      
     public void deleteAll();
     
-    public void addListCities();
+  //  public void addListCities();
     
 }

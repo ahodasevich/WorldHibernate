@@ -30,14 +30,14 @@ public class CountryService {
         countryDao.closeCurrentSessionwithTransaction();
     }
  
-    public Country findById(int id) {
+    public Country findById(String code) {
         countryDao.openCurrentSession();
-        Country country = countryDao.findById(id);
+        Country country = countryDao.findById(code);
         countryDao.closeCurrentSession();
         return country;
     }
  
-    public void delete(int id) {
+    public void delete(String id) {
         countryDao.openCurrentSessionwithTransaction();
         Country country = countryDao.findById(id);
         countryDao.delete(country);

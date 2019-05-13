@@ -14,8 +14,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import com.minsk.hibernateapp.utils.HibernateSessionFactoryUtil;
 
-public class CountryDao implements CountryDaoInterface<Country, Integer> {
+public class CountryDao implements CountryDaoInterface<Country, String> {
 
   private Session currentSession;
      
@@ -25,12 +26,12 @@ public class CountryDao implements CountryDaoInterface<Country, Integer> {
     }
     
    public Session openCurrentSession() {
-        currentSession = getSessionFactory().openSession();
+        currentSession = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         return currentSession;
     }
  
     public Session openCurrentSessionwithTransaction() {
-        currentSession = getSessionFactory().openSession();
+        currentSession = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         currentTransaction = currentSession.beginTransaction();
         return currentSession;
     }
@@ -43,17 +44,7 @@ public class CountryDao implements CountryDaoInterface<Country, Integer> {
         currentTransaction.commit();
         currentSession.close();
     }
-     
-    private static SessionFactory getSessionFactory() {
-        Configuration configuration = new Configuration().configure();
-        configuration.addAnnotatedClass(Country.class);
-        configuration.addAnnotatedClass(City.class);
-        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
-                .applySettings(configuration.getProperties());
-        SessionFactory sessionFactory = configuration.buildSessionFactory(builder.build());
-        return sessionFactory;
-    }
- 
+
     public Session getCurrentSession() {
         return currentSession;
     }
@@ -78,7 +69,7 @@ public class CountryDao implements CountryDaoInterface<Country, Integer> {
         getCurrentSession().update(entity);
     }
  
-    public Country findById(Integer id) {
+    public Country findById(String id) {
         Country country = (Country) getCurrentSession().get(Country.class, id);
         return country; 
     }
